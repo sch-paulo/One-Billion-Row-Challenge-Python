@@ -51,7 +51,7 @@ In order to run the scripts from this project, you will need the following libra
 
 Tests were performed on a desktop equipped with an AMD Ryzen 7 5700X 3.4GHz procesor and 32GB of RAM. The implementations used purely Python, Pandas, Dask, Polars and DuckDB approaches. The table below presents the runtime results for processing 1M, 10M, 100M and 1B rows:
 
-| Method | 1M rows | 10M rows | 100M rows | 1B rows (15.7GB) |
+| Method | 1M rows (16.1MB) | 10M rows (161MB) | 100M rows (1.57GB) | 1B rows (15.7GB) |
 | --- | --- | --- | --- | --- |
 | Python | 1.49 sec | 15.00 sec | 151.66 sec | 1484.89 sec |
 | Python + Pandas | 1.07 sec | 3.42 sec | 27.99 sec | 300.72 sec |
