@@ -137,19 +137,3 @@ Ao executar o script, você verá a barra de progresso (se pv estiver instalado 
 
 Esse projeto faz parte da *Jornada de Dados*
 Nossa missão é fornecer o melhor ensino em engenharia de dados
-
-Se você quer:
-
-- Aprender sobre Duckdb e engenharia de dados
-- Construir uma base sólida em Python e SQL
-- Criar ou melhorar seu portfólio de dados
-- Criar ou aumentar o seu networking na área
-- Mudar ou dar o próximo passo em sua carreira
-
-A Jornada de Dados é o seu lugar
-
-[![Imagem](https://github.com/lvgalvao/data-engineering-roadmap/raw/main/pics/jornada.png)](https://www.jornadadedados2024.com.br/workshops)
-
-Para entrar na lista de espera clique no botao
-
-[![Imagem](https://raw.githubusercontent.com/lvgalvao/data-engineering-roadmap/main/pics/lista_de_espera.png)](https://forms.gle/hJMtRDP3MPBUGvwS7?orbt_src=orbt-vst-1RWyYmpICDu9gPknLgaD)
