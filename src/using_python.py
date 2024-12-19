@@ -1,42 +1,42 @@
 from csv import reader
 from collections import defaultdict, Counter
-from tqdm import tqdm  # barra de progresso
+from tqdm import tqdm  # progress bar
 import time
 from pathlib import Path
 
-NUMERO_DE_LINHAS: int = 10_000_000
+NUMBER_OF_ROWS: int = 1_000_000_000
 
-def processar_temperaturas(path_do_txt: Path) -> dict:
+def process_temperatures(txt_path: Path) -> dict:
     # utilizando infinito positivo e negativo para comparar
-    minimas: defaultdict = defaultdict(lambda: float('inf'))
-    maximas: defaultdict = defaultdict(lambda: float('-inf'))
-    somas: defaultdict = defaultdict(float)
-    medicoes: Counter = Counter()
+    minimum: defaultdict = defaultdict(lambda: float('inf'))
+    maxims: defaultdict = defaultdict(lambda: float('-inf'))
+    sums: defaultdict = defaultdict(float)
+    measures: Counter = Counter()
 
-    with open(path_do_txt, 'r', encoding='utf-8') as file:
+    with open(txt_path, 'r', encoding='utf-8') as file:
         _reader = reader(file, delimiter=';')
-        # usando tqdm diretamente no iterador, isso mostrará a porcentagem de conclusão.
-        for row in tqdm(_reader, total=NUMERO_DE_LINHAS, desc="Processando"):
-            nome_da_station: str = str(row[0])
-            temperatura: float = float(row[1])
-            medicoes.update([nome_da_station])
-            minimas[nome_da_station] = min(minimas[nome_da_station], temperatura)
-            maximas[nome_da_station] = max(maximas[nome_da_station], temperatura)
-            somas[nome_da_station] += temperatura
+        # Iterating with tqdm to visualize the progress bar
+        for row in tqdm(_reader, total=NUMBER_OF_ROWS, desc="Processing"):
+            station_name: str = str(row[0])
+            temperature: float = float(row[1])
+            measures.update([station_name])
+            minimum[station_name] = min(minimum[station_name], temperature)
+            maxims[station_name] = max(maxims[station_name], temperature)
+            sums[station_name] += temperature
 
-    print("Dados carregados. Calculando estatísticas...")
+    print("Data loaded. Calculating statistics...")
 
-    # calculando min, média e max para cada estação
+    # Calculating min, mean and max for each station
     results: dict = {}
-    for station, qtd_medicoes in medicoes.items():
-        mean_temp: float = somas[station] / qtd_medicoes
-        results[station] = (minimas[station], mean_temp, maximas[station])
+    for station, qty_measures in measures.items():
+        mean_temp: float = sums[station] / qty_measures
+        results[station] = (minimum[station], mean_temp, maxims[station])
 
-    print("Estatística calculada. Ordenando...")
-    # ordenando os resultados pelo nome da estação
+    print("Statistics calculated. Ordering...")
+    # Ordering the results by station name
     sorted_results: dict = dict(sorted(results.items()))
 
-    # formatando os resultados para exibição
+    # Formatting results for better displaying
     formatted_results = {station: f"{min_temp:.1f}/{mean_temp:.1f}/{max_temp:.1f}"
                          for station, (min_temp, mean_temp, max_temp) in sorted_results.items()}
 
@@ -44,16 +44,16 @@ def processar_temperaturas(path_do_txt: Path) -> dict:
 
 
 if __name__ == "__main__":
-    path_do_txt: Path = Path("data/measurements.txt")
+    txt_path: Path = Path("data/measurements.txt")
 
-    print("Iniciando o processamento do arquivo.")
-    start_time: float = time.time()  # Tempo de início
+    print("Initializing file processing.")
+    start_time: float = time.time()
 
-    resultados: dict = processar_temperaturas(path_do_txt)
+    results: dict = process_temperatures(txt_path)
 
-    end_time: float = time.time()  # Tempo de término
+    end_time: float = time.time()
 
-    for station, metrics in resultados.items():
+    for station, metrics in results.items():
         print(station, metrics, sep=': ')
 
-    print(f"\nProcessamento concluído em {end_time - start_time:.2f} segundos.")
+    print(f"\nPython process took: {end_time - start_time:.2f} sec.")

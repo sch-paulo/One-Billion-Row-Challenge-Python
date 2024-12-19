@@ -3,18 +3,18 @@ import dask.dataframe as dd
 
 def create_dask_df():
     dask.config.set({'dataframe.query-planning': True})
-    # Configurando o Dask DataFrame para ler o arquivo CSV
-    # Como o arquivo não tem cabeçalho, especificamos os nomes das colunas manualmente
+    # Configuring Dask Dataframe to read the CSV file
+    # Since the file does not have a header, we specify the column names manually
     df = dd.read_csv("data/measurements.txt", sep=";", header=None, names=["station", "measure"])
     
-    # Agrupando por 'station' e calculando o máximo, mínimo e média de 'measure'
-    # O Dask realiza operações de forma lazy, então esta parte apenas define o cálculo
+    # Grouping by "station" and calculating max, min and mean of "measure"
+    # Dask does operations in a "lazy" way, so this part just defines the calculus
     grouped_df = df.groupby("station")['measure'].agg(['max', 'min', 'mean']).reset_index()
 
-    # O Dask não suporta a ordenação direta de DataFrames agrupados/resultantes de forma eficiente
-    # Mas você pode computar o resultado e então ordená-lo se o dataset resultante não for muito grande
-    # ou se for essencial para a próxima etapa do processamento
-    # A ordenação será realizada após a chamada de .compute(), se necessário
+    # Dask does not support direct ordering of grouped/resulting Dataframes in an efficient way
+    # But you can compute the result and than order it if the resulting dataset is not very large
+    # Or, if it is an essential thing for the next step of processing, the ordering can be done after 
+    # the ".compute()" call
 
     return grouped_df
 
@@ -24,9 +24,9 @@ if __name__ == "__main__":
     start_time = time.time()
     df = create_dask_df()
     
-    # O cálculo real e a ordenação são feitos aqui
+    # The real calculus and the ordering are done here
     result_df = df.compute().sort_values("station")
     took = time.time() - start_time
 
     print(result_df)
-    print(f"Dask Took: {took:.2f} sec")
+    print(f"Python + Dask process took: {took:.2f} sec")

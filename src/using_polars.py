@@ -4,6 +4,7 @@ import polars as pl
 # Github: https://github.com/koenvo
 # Twitter/x Handle: https://twitter.com/mr_le_fox
 # https://x.com/mr_le_fox/status/1741893400947839362?s=20
+
 def create_polars_df():
     pl.Config.set_streaming_chunk_size(4000000)
     return (
@@ -27,4 +28,4 @@ if __name__ == "__main__":
     df = create_polars_df()
     took = time.time() - start_time
     print(df)
-    print(f"Polars Took: {took:.2f} sec")
+    print(f"Python + Polars process took: {took:.2f} sec")
